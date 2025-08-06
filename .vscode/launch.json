@@ -13,7 +13,18 @@
       "localRoot": "${workspaceFolder}/app",
       "remoteRoot": "/app",
       "protocol": "inspector",
-      "console": "internalConsole" // <- 중요
+      "console": "internalConsole"
+    },
+    {
+      "name": "Containers: Node.js Launch",
+      "type": "docker",
+      "request": "launch",
+      "preLaunchTask": "docker-run: debug",
+      "platform": "node",
+      "node": {
+        "package": "${workspaceFolder}/app/package.json",
+        "localRoot": "${workspaceFolder}/app"
+      }
     }
   ]
 }
