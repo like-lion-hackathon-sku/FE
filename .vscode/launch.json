@@ -4,16 +4,13 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Attach to Docker",
+      "name": "Attach to Docker Node.js",
+      "address": "localhost",
       "port": 9229,
-      "address": "host.docker.internal",
-      "preLaunchTask": "Run Docker Container",
-      "postDebugTask": "Stop Docker Container",
       "restart": true,
       "localRoot": "${workspaceFolder}/app",
       "remoteRoot": "/app",
-      "protocol": "inspector",
-      "console": "internalConsole" // <- 중요
+      "protocol": "inspector"
     }
   ]
 }
