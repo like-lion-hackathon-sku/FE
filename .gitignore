@@ -3,3 +3,6 @@ app/.env
 app/.env.*
 app/src/generated
 app/prisma/migrations
+
+/app/src/generated/prisma
+/mysql/data
