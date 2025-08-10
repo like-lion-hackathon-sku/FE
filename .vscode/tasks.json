@@ -1,74 +1,15 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Create container",
-      "type": "shell",
-      "command": "docker build -t time-attack:BE ./;docker rm time-attack-container;docker create --name time-attack-container -p 3000:3000 -p 9229:9229 -v ${workspaceFolder}/app:/app time-attack:BE",
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Run Docker Container",
-      "type": "shell",
-      "command": "docker start time-attack-container",
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Stop Docker Container",
-      "type": "shell",
-      "command": "docker stop time-attack-container",
-      "problemMatcher": []
-    },
-    {
-      "type": "docker-build",
-      "label": "docker-build",
-      "platform": "node",
-      "dockerBuild": {
-        "dockerfile": "${workspaceFolder}/app/Dockerfile",
-        "context": "${workspaceFolder}/app",
-        "pull": true
-      },
-      "node": {
-        "package": "${workspaceFolder}/app/package.json"
-      }
-    },
-    {
-      "type": "docker-run",
-      "label": "docker-run: release",
-      "dependsOn": [
-        "docker-build"
-      ],
-      "platform": "node",
-      "node": {
-        "package": "${workspaceFolder}/app/package.json"
-      }
-    },
-    {
-      "type": "docker-run",
-      "label": "docker-run: debug",
-      "dependsOn": [
-        "docker-build"
-      ],
-      "dockerRun": {
-        "env": {
-          "DEBUG": "*",
-          "NODE_ENV": "development"
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "start react app",
+            "type": "shell",
+            "command": "npm run dev",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
-      },
-      "node": {
-        "package": "${workspaceFolder}/app/package.json",
-        "enableDebugging": true
-      }
-    }
-  ]
+    ]
 }
