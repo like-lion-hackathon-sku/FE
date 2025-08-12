@@ -1,0 +1,58 @@
+.screen { min-height: 100vh; background:#fff; color:#111827; }
+.header { max-width: 960px; margin: 0 auto; padding:16px; display:flex; justify-content:flex-end; }
+.container { max-width: 960px; margin:0 auto; padding:0 16px 48px; }
+.title { text-align:center; font-size:28px; font-weight:600; margin:8px 0 32px; }
+
+.tableWrap { margin-top:24px; overflow-x:auto; }
+.table { width:100%; border-collapse:separate; border-spacing:0; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,.06); background:#fff; }
+.table thead tr { background:rgba(37,99,235,.6); color:#fff; }
+.table th, .table td { padding:12px 14px; border-bottom:1px solid #e5e7eb; vertical-align:middle; }
+.thCenter, .tdCenter { text-align:center; }
+.row { background:#fff; cursor:pointer; }
+.row:hover { background:#f9fafb; }
+.empty { padding:36px 12px; text-align:center; color:#6b7280; }
+
+.footerBar{
+  margin-top:24px; display:flex; align-items:center; justify-content:space-between; width:100%;
+}
+
+.pagination{ display:inline-flex; align-items:center; gap:8px; }
+
+/* Prev/Next */
+.btn{
+  border:1px solid #e5e7eb; background:#fff; color:#111;
+  padding:6px 12px; font-size:14px; border-radius:8px;
+}
+.btn:hover{ background:#f3f4f6; }
+.btn:disabled{ opacity:.5; cursor:not-allowed; }
+.btnDanger{
+  background:#ef4444 !important;
+  color:#fff !important;
+  border:none;
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.btnDanger:hover{ background:#ef4444ee !important; }
+/* Page numbers (기본: 흰배경+검은글씨, 중앙정렬, 패딩 넉넉) */
+.page{
+  min-width:36px; height:36px; padding:0 14px; border-radius:8px;
+  border:1px solid #e5e7eb; background:#fff; color:#111;
+  font-size:14px; line-height:36px; display:inline-flex; align-items:center; justify-content:center;
+}
+.page:hover{ background:#f3f4f6; }
+
+/* Active page */
+.pageActive{
+  background:#111827; color:#fff; border-color:#111827;
+}
+
+/* 글 작성하기 (오른쪽) */
+.btnPrimary{
+  background:rgba(37,99,235,.6); color:#fff; border:none;
+  padding:8px 14px; border-radius:12px; font-weight:600;
+}
+.btnPrimary:hover{ background:rgba(37,99,235,.8); }
