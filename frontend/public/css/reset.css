@@ -1,0 +1,9 @@
+/* 간단 리셋 */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img,
+ol, ul, li, form, label, table, tr, th, td { margin:0; padding:0; border:0; }
+article, aside, footer, header, nav, section { display:block; }
+*, *::before, *::after { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+body { line-height:1.4; }
+ol, ul { list-style:none; }
+a { text-decoration:none; color:inherit; }
+button:focus-visible { outline:2px solid #4a90e2 !important; }
