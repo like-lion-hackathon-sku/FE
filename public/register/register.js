@@ -1,5 +1,5 @@
-import { apiFetch } from '/api.js';
-
+import { apiFetch } from '/public/api-client.js';
+console.log('[register.js] 로드됨'); // 로드 확인용
 const $ = (id) => document.getElementById(id);
 
 const f = $('signupForm');
