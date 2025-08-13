@@ -35,35 +35,35 @@ jobs:
 
       - name: Copy Workspace
         run: |
-          ssh EC2 'sudo mkdir -p /opt/app/EKEC'
-          ssh EC2 'sudo chown ubuntu:ubuntu /opt/app/EKEC'
-          scp -r ./[!.]* EC2:/opt/app/EKEC
+          ssh EC2 'sudo mkdir -p /opt/app/time-attack'
+          ssh EC2 'sudo chown time:time /opt/app/time-attack'
+          scp -r ./[!.]* EC2:/opt/app/time-attack
 
       - name: Install dependencies
         run: |
-          ssh EC2 'npm install --prefix /opt/app/EKEC'
+          ssh EC2 'npm install --prefix /opt/app/time-attack'
 
       - name: Copy systemd service file
         run: |
           ssh EC2 '
             echo "[Unit]
-            Description=EKEC
+            Description=Time-Attack
             After=network.target
 
             [Service]
             User=${USER}
-            ExecStart=/usr/bin/npm run start --prefix /opt/app/EKEC
+            ExecStart=/usr/bin/npm run start --prefix Time-Attack
             Restart=always
 
             [Install]
-            WantedBy=multi-user.target" | sudo tee /etc/systemd/system/EKEC.service
+            WantedBy=multi-user.target" | sudo tee /etc/systemd/system/Time-Attack.service
           '
 
       - name: Enable systemd service
         run: |
           ssh EC2 'sudo systemctl daemon-reload'
-          ssh EC2 'sudo systemctl enable EKEC'
+          ssh EC2 'sudo systemctl enable Time-Attack'
 
       - name: Restart systemd service
         run: |
-          ssh EC2 'sudo systemctl restart EKEC'
+          ssh EC2 'sudo systemctl restart Time-Attack'
