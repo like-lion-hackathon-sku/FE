@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // PostDetail 위치 확인: components/PostDetail.jsx
-import PostDetail from "../components/PostDetail";
+import PostDetail from "../components/post/PostDetail";
 
 import { getPost, deletePost, listComments, createComment /*, deleteComment */ } from "../api/posts";
 

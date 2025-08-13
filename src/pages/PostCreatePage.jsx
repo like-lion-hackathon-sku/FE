@@ -1,9 +1,9 @@
 // src/components/post/PostCreate.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./PostCreate.module.css";
-import PostForm from "./PostForm";
-import { createPost } from "../../api/posts";
+import styles from "../components/post/PostCreate.module.css";
+import PostForm from "../components/post/PostForm";
+import { createPost } from "../api/posts";
 
 export default function PostCreate({ onSubmit }) {
   const navigate = useNavigate();

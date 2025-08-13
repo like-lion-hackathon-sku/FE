@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BoardPage from "./pages/BoardPage";
 import PostDetailPage from "./pages/PostDetailPage";
-import PostCreate from "./components/post/PostCreate";
-import PostEditPage from "./components/post/PostEditPage";      // ← 경로 확인! (pages에 둔 걸로 가정)
+import PostCreate from "./pages/PostCreatePage";
+import PostEditPage from "./pages/PostEditPage";      // ← 경로 확인! (pages에 둔 걸로 가정)
 import Layout from "./components/Layout";             // Layout 안에서 <Outlet /> 사용
 
 export default function App() {

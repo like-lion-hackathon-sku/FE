@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>회원 가입</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/register/register.css" />
+  </head>
+  <body>
+    <div class="screen">
+      <div class="div">
+        <div class="gradient-shadow">
+          <img class="timeattack-logo" src="/logo.png" alt="Time Attack Logo" />
+        </div>
+
+        <div class="section">
+          <div class="heading"><div class="text-wrapper">회원 가입</div></div>
+
+          <form id="signupForm" class="form" novalidate>
+            <div class="container">
+              <div class="div-wrapper"><div class="text-wrapper-2">아이디</div></div>
+              <div class="container-2">
+                <div class="input">
+                  <div class="container-3">
+                    <input id="user_id" name="user_id" type="text"
+                           placeholder="아이디를 입력하세요" autocomplete="username" aria-label="아이디" />
+                  </div>
+                </div>
+                <button type="button" class="button" id="checkIdBtn">
+                  <div class="text-wrapper-4">중복 확인</div>
+                </button>
+              </div>
+              <div class="margin">
+                <div class="div-wrapper">
+                  <div class="text-wrapper-5">영문/숫자/언더스코어, 4~16자</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="div-wrapper"><div class="text-wrapper-2">패스워드</div></div>
+              <div class="container-2">
+                <div class="input">
+                  <div class="container-3">
+                    <input id="password" name="password" type="password"
+                           placeholder="비밀번호를 입력하세요" autocomplete="new-password" aria-label="비밀번호" />
+                  </div>
+                </div>
+                <button type="button" class="button-2" id="togglePw">
+                  <div class="text-wrapper-6">보기</div>
+                </button>
+              </div>
+              <div class="margin">
+                <div class="div-wrapper"><p class="text-wrapper-5">8자 이상 권장</p></div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="div-wrapper"><div class="text-wrapper-2">패스워드 확인</div></div>
+              <div class="container-wrapper">
+                <div class="container-3">
+                  <input id="passwordConfirm" name="passwordConfirm" type="password"
+                         placeholder="비밀번호를 다시 입력하세요" autocomplete="new-password" aria-label="비밀번호 확인" />
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="text-wrapper-7">닉네임</div>
+              <div class="container-wrapper">
+                <div class="container-3">
+                  <input id="nickname" name="nickname" type="text"
+                         placeholder="닉네임을 입력하세요" autocomplete="nickname" aria-label="닉네임" />
+                </div>
+              </div>
+            </div>
+
+            <div class="margin-2">
+              <div class="container-5">
+                <button type="submit" class="button-3" id="submitBtn">
+                  <div class="text-wrapper-4">가입</div>
+                </button>
+                <button type="button" class="button-2" id="cancelBtn">
+                  <div class="text-wrapper-6">취소</div>
+                </button>
+              </div>
+            </div>
+
+            <div class="status-margin" id="statusArea"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/api.js"></script>
+    <script type="module" src="/register/register.js"></script>
+  </body>
+</html>

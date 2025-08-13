@@ -15,6 +15,8 @@ import { listPosts } from "../api/posts";
 export default function BoardPage() {
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
+  const [page, setPage] = useState(1);  
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     (async () => {
@@ -27,14 +29,14 @@ export default function BoardPage() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [page]);
   if (loading) return <p style={{ padding: 12 }}>로딩중…</p>;
   return (
     <BoardList
       rows={rows}
       page={1}
       totalPages={2}
-      onPageChange={(p)=>console.log("go page", p)}
+      onPageChange={(p) => setPage(p)}   
       onCreate={() => navigate("/posts/new")} 
       onLogout={()=>console.log("logout")}
       onRowClick={(r)=>console.log("open row", r)}

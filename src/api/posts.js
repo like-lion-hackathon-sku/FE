@@ -12,15 +12,23 @@ const mapPost = (r) => ({
 });
 const mapComment = (r) => ({
   id: r.id,
-  author: r.author,            // 백엔드에서 author_email을 author로 내려줌
+  author: r.author,                     // 표시용(이메일/닉네임 등)
   body: r.body,
   createdAt: r.createdAt?.slice?.(0,10) || r.createdAt,
-  // authorId: r.authorId,      // 백엔드가 author_id도 내려주면 이 줄 추가
+  authorId: r.author_id ?? r.authorId,  // ✅ 백엔드 키에 맞춰 보강
 });
 
-export async function listPosts() {
-  const { data } = await client.get("/posts");
-  return data.data.map(mapPost);
+export async function listPosts({ page = 1, limit = 10 } = {}) {
+  const { data } = await client.get("/posts", { params: { page, limit } });
+
+  // 백엔드 응답 형태 대응: { data: [], meta:{ page,totalPages,total } } 또는 { data: [], total }
+  const rows = (data.data ?? data).map(mapPost);
+  const total = data.meta?.total ?? data.total;
+  const totalPages =
+    data.meta?.totalPages ??
+    (typeof total === "number" ? Math.max(1, Math.ceil(total / limit)) : 1);
+
+  return { rows, page: data.meta?.page ?? page, totalPages };
 }
 
 export async function getPost(id) {
