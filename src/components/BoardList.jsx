@@ -44,7 +44,9 @@ export default function BoardList({
   return (
     <div className={styles.screen}>
       <header className={styles.header}>
-        <button className={styles.btnDanger} onClick={onLogout}>로그아웃</button>
+        <a href="/login/login.html" className={styles.btnDanger}>
+    로그아웃
+  </a>
       </header>
 
       <main className={styles.container}>
