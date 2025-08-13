@@ -1,12 +1,22 @@
 import React from "react";
+import styles from "./PostDetail.module.css";
+import CommentDelete from "./CommentDelete";
 
-export default function CommentItem({ comment }) {
+export default function CommentItem({ comment, currentUser, onDelete }) {
   return (
-    <div style={{ borderBottom: "1px solid #eee", padding: "4px 0" }}>
-      <b>{comment.author}</b>: {comment.body}
-      <div style={{ fontSize: "0.8em", color: "#777" }}>
-        {comment.createdAt}
-      </div>
-    </div>
+    <li className={styles.commentItem}>
+      <div className={styles.commentAuthor}>{comment.author}</div>
+      <div className={styles.commentBody}>{comment.body}</div>
+      <time className={styles.commentDate}>{comment.createdAt}</time>
+
+      {/* 여기서 CommentDelete 사용 */}
+      <CommentDelete
+        commentId={comment.id}
+        authorId={comment.authorId}
+        //authorEmail={comment.author}
+        currentUser={currentUser}
+        onDelete={onDelete}
+      />
+    </li>
   );
 }

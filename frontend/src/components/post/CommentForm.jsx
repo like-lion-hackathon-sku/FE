@@ -1,33 +1,24 @@
 import React, { useState } from "react";
-import { apiFetch } from "../../lib/api.js";
+import styles from "./PostDetail.module.css";
 
-export default function CommentForm({ postId }) {
-  const [body, setBody] = useState("");
+export default function CommentForm({ onSubmit }) {
+  const [text, setText] = useState("");
 
-  const handleSubmit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    if (!body.trim()) return;
-    try {
-      await apiFetch(`/posts/${postId}/comments`, {
-        method: "POST",
-        body: { body },
-      });
-      setBody("");
-      // 새로고침 대신 댓글 목록 상태를 상위에서 관리하면 더 좋음
-      location.reload();
-    } catch (err) {
-      alert(err.message || "댓글 작성 실패");
-    }
+    onSubmit?.(text);
+    setText("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submit} className={styles.commentForm}>
       <input
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        placeholder="댓글 입력..."
+        className={styles.input}
+        placeholder="댓글을 입력하세요"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
       />
-      <button type="submit">등록</button>
+      <button className={styles.btnPrimary} type="submit">댓글 작성</button>
     </form>
   );
 }

@@ -1,33 +1,23 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BoardPage from "./pages/BoardPage";
 import PostDetailPage from "./pages/PostDetailPage";
-import PostCreatePage from "./pages/PostCreatePage";
+import PostCreate from "./pages/PostCreatePage";
+import PostEditPage from "./pages/PostEditPage";      // ← 경로 확인! (pages에 둔 걸로 가정)
+import Layout from "./components/Layout";             // Layout 안에서 <Outlet /> 사용
 
 export default function App() {
-  
+  const currentUser = { id: "u1", name: "이정완", role: "user" };
   return (
     <BrowserRouter>
-      <nav
-        style={{
-          padding: "8px 12px",
-          borderBottom: "1px solid #eee",
-          display: "flex",
-          gap: 12,
-        }}
-      >
-        <Link to="/">게시판</Link>
-        <div style={{ marginLeft: "auto", display: "flex", gap: 12 }}>
-          <a href="/login/login.html">로그인</a>
-          <a href="/register/register.html">회원가입</a>
-        </div>
-      </nav>
-
       <Routes>
-        <Route path="/" element={<BoardPage />} />
-        <Route path="/posts/new" element={<PostCreatePage />} />
-        <Route path="/posts/:id" element={<PostDetailPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* 여기서 Layout이 모든 페이지를 감쌉니다 */}
+        <Route element={<Layout currentUser = {currentUser} />}>
+          <Route path="/" element={<BoardPage />} />
+          <Route path="/posts/new" element={<PostCreate />} />
+          <Route path="/posts/:id" element={<PostDetailPage />} />
+          <Route path="/posts/:id/edit" element={<PostEditPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

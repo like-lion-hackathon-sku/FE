@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { apiFetch } from "../../lib/api.js";
-import CommentItem from "./CommentItem.jsx";
+import React from "react";
+import styles from "./PostDetail.module.css";
+import CommentItem from "./CommentItem";
 
-export default function CommentList({ postId }) {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    apiFetch(`/posts/${postId}/comments`)
-      .then((data) => setComments(data))
-      .catch((err) => console.error(err));
-  }, [postId]);
-
+export default function CommentList({ items = [], currentUser, onDelete }) {
+  if (!items.length) return <p className="comments__empty">첫 댓글을 남겨보세요!</p>;
   return (
-    <div>
-      <h3>댓글</h3>
-      {comments.length === 0 && <p>댓글이 없습니다.</p>}
-      {comments.map((c) => (
-        <CommentItem key={c.id} comment={c} />
+    <ul>
+      {items.map((c) => (
+        <CommentItem
+          key={c.id}
+          comment={c}
+          currentUser={currentUser}
+          onDelete={onDelete}
+        />
       ))}
-    </div>
+    </ul>
   );
 }

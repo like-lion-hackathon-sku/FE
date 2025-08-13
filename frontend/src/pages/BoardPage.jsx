@@ -1,27 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { apiFetch } from "../lib/api.js";
+import { useNavigate } from "react-router-dom";
+import BoardList from "../components/BoardList";
+import { listPosts } from "../api/posts";
+
+/*const rows = [
+  { id: 6, author: "양현준", title: "프론트엔드", date: "2025-08-09" },
+  { id: 5, author: "서승기", title: "PM", date: "2025-08-09" },
+  { id: 4, author: "이호현", title: "백엔드", date: "2025-08-09" },
+  { id: 3, author: "김민호", title: "백엔드", date: "2025-08-09" },
+  { id: 2, author: "박경원", title: "프론트엔드", date: "2025-08-09" },
+  { id: 1, author: "이정완", title: "프론트엔드", date: "2025-08-09" },
+];*/
 
 export default function BoardPage() {
-  const [posts, setPosts] = useState([]);
-
+  const navigate = useNavigate();
+  const [rows, setRows] = useState([]);
+  const [page, setPage] = useState(1);  
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    apiFetch("/posts")
-      .then((data) => setPosts(data.data || []))
-      .catch((err) => console.error(err));
-  }, []);
-
+    (async () => {
+      try {
+        const data = await listPosts();
+        setRows(data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [page]);
+  if (loading) return <p style={{ padding: 12 }}>로딩중…</p>;
   return (
-    <div style={{ padding: 20 }}>
-      <h1>게시판</h1>
-      <Link to="/posts/new">글 작성</Link>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.post_id}>
-            <Link to={`/posts/${post.post_id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <BoardList
+      rows={rows}
+      page={1}
+      totalPages={2}
+      onPageChange={(p) => setPage(p)}   
+      onCreate={() => navigate("/posts/new")} 
+      onLogout={()=>console.log("logout")}
+      onRowClick={(r)=>console.log("open row", r)}
+    />
   );
 }

@@ -1,5 +1,5 @@
 import { apiFetch } from '/js/api.js';
-
+console.log('[login.js] 로드됨'); // 로드 확인용
 const form = document.getElementById("loginForm");
 const user_id = document.getElementById("user_id");
 const password = document.getElementById("password");
@@ -24,7 +24,7 @@ form.addEventListener("submit", async (e) => {
     });
     alert('로그인 완료!');
     // React 게시판 홈으로 이동
-    location.href = '/';
+    location.href = 'http://localhost:5173/';
   } catch (err) {
     alert(err.message || '로그인에 실패했습니다.');
   } finally {
