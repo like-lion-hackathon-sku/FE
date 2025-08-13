@@ -23,13 +23,15 @@ jobs:
           Host EC2
             HostName $EC2_HOST
             User $EC2_USER
+            Port $EC2_PORT
             IdentityFile ~/.ssh/id_rsa
             StrictHostKeyChecking no
           END
         env:
-          EC2_USER: ubuntu
+          EC2_USER: time
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          EC2_PORT: ${{ secrets.EC2_PORT }}
 
       - name: Copy Workspace
         run: |
