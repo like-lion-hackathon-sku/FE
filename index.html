@@ -5,6 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Time ∆ttack</title>
+    <script>
+  // 로그인 세션 쿠키가 없으면 로그인 페이지로 보냄
+  // (쿠키 이름이 'token'이라고 가정. 백엔드에서 다르면 이름만 바꿔주기)
+  const hasToken = /(?:^|;\s*)token=/.test(document.cookie);
+  if (!hasToken) {
+    location.replace('/login/login.html');
+  }
+</script>
   </head>
   <body>
     <div id="root"></div>
