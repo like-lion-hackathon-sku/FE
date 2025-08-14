@@ -18,7 +18,7 @@ const mapComment = (r) => ({
   authorId: r.author_id ?? r.authorId,  // ✅ 백엔드 키에 맞춰 보강
 });
 
-export async function listPosts({ page = 1, limit = 10 } = {}) {
+export async function listPosts({ page = 1, limit = 5 } = {}) {
   const { data } = await client.get("/posts", { params: { page, limit } });
 
   // 백엔드 응답 형태 대응: { data: [], meta:{ page,totalPages,total } } 또는 { data: [], total }

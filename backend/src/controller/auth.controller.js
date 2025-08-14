@@ -5,6 +5,7 @@ import * as AuthService from '../service/auth.service.js';
 function pickUserId(req) {
   const raw =
     req.body?.user_id ??
+    req.body?.email ??
     req.query?.user_id ??
     req.params?.user_id ??
     '';
@@ -79,4 +80,9 @@ export async function checkDuplication(req, res) {
     console.error('[CHECK DUP ERROR]', e);
     return res.status(500).json({ ok: false, message: '서버 에러' });
   }
+}
+export async function me(req, res) {
+  const user = req.session?.user;         // { id, email }를 로그인에서 넣음
+  if (!user) return res.status(401).json({ ok: false, message: 'Unauthorized' });
+  return res.json({ ok: true, data: user });
 }
