@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../App";
 import { useParams, useNavigate } from "react-router-dom";
 // PostDetail 위치 확인: components/PostDetail.jsx
 import PostDetail from "../components/post/PostDetail";
 
-import { getPost, deletePost, listComments, createComment /*, deleteComment */ } from "../api/posts";
+import { getPost, deletePost, listComments, createComment, deleteComment } from "../api/posts";
 
 export default function PostDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // 임시 로그인 사용자 (나중에 AuthContext로 교체)
-  const currentUser = { id: "u1", name: "이정완", role: "user" };
+  // ✅ 실제 세션 사용자 사용
+  const { user } = useAuth();
+  const currentUser = user
+    ? { id: user.id, name: user.nickname ?? user.email, role: user.role ?? "user" }
+    : null;
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]); // 댓글은 일단 목업
@@ -34,31 +38,31 @@ export default function PostDetailPage() {
     })();
   }, [id, navigate]);
 
-  const goBack = () => navigate(-1);
+  const goBack = () => navigate("/", { replace: true });
 
   const onDeletePost = async () => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    try {
-      await deletePost(id);
-      alert("삭제되었습니다.");
-      navigate("/");
-    } catch (e) {
-      console.error(e);
-      alert("삭제에 실패했습니다.");
-    }
-  };
+  if (!window.confirm("정말 삭제하시겠습니까?")) return;
+  try {
+    await deletePost(id);
+    navigate("/", { replace: true, state: { toast: "게시글을 삭제했습니다." } });
+  } catch (e) {
+    console.error(e);
+    alert("삭제에 실패했습니다.");
+  }
+};
 
-  /* const onDeleteComment = async (cid) => {
+
+   const onDeleteComment = async (cid) => {
     if (!window.confirm("정말 댓글을 삭제하시겠습니까?")) return;
     try {
-      await deleteComment(id, cid); // 서버에 삭제 요청
-      const cs = await listComments(id); // 최신 목록 다시 가져오기
+      await deleteComment(id, cid);      // ★ API 호출
+      const cs = await listComments(id); // 목록 갱신
       setComments(cs);
     } catch (e) {
       console.error(e);
       alert("댓글 삭제에 실패했습니다.");
     }
-  };*/
+  };
 
   const addComment = async (text) => {
     const body = text.trim();

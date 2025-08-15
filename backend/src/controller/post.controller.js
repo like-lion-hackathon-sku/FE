@@ -157,17 +157,22 @@ export const deletePost = async (req, res) => {
     return res.status(400).json({ message: 'postId가 올바르지 않습니다.' });
   }
 
+  const conn = await pool.getConnection();
   try {
-    const [result] = await pool.query(
-      `DELETE FROM \`Post\` WHERE \`post_id\` = ?`,
-      [postId]
-    );
-    if (result.affectedRows === 0) {
+    await conn.beginTransaction();
+    await conn.query('DELETE FROM `comment` WHERE `post_id` = ?', [postId]); // 1) 댓글 먼저
+    const [r] = await conn.query('DELETE FROM `Post` WHERE `post_id` = ?', [postId]); // 2) 글 삭제
+    await conn.commit();
+
+    if (r.affectedRows === 0) {
       return res.status(404).json({ message: '삭제할 게시글을 찾을 수 없습니다.' });
     }
     return res.status(200).json({ message: '게시글이 삭제되었습니다.' });
   } catch (err) {
+    await conn.rollback();
     console.error('[deletePost] error:', err);
     return res.status(500).json({ message: '게시글 삭제에 실패하였습니다.' });
+  } finally {
+    conn.release();
   }
 };

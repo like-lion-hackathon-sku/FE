@@ -46,13 +46,18 @@ export async function deletePost(id) {
 }
 export async function listComments(postId) {
   const { data } = await client.get(`/posts/${postId}/comments`);
-  // 백엔드가 배열을 바로 반환하므로 data는 Array
-  return data.map(mapComment);
+  return data.map(r => ({
+    id: r.id ?? r.comment_id,
+    authorId: r.authorId ?? r.user_id,                 // ⭐ 꼭 세팅
+    author: r.author ?? String(r.authorId ?? r.user_id),
+    body: r.body ?? r.content,
+    createdAt: (r.createdAt ?? r.created_at)?.slice?.(0,10) ?? r.created_at
+  }));
 }
 export async function createComment(postId, { body }) {
   // 세션 로그인(쿠키) 기반이면 client.withCredentials=true 설정 필요
   return client.post(`/posts/${postId}/comments`, { body });
 }
-/*export async function deleteComment(postId, commentId) {
-  return client.delete(`/posts/${postId}/comments/${commentId}`);
-}*/
+export async function deleteComment(postId, commentId) {
+  await client.delete(`/posts/${postId}/comments/${commentId}`);
+}
