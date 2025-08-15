@@ -72,6 +72,7 @@ f.addEventListener('submit', async (e) => {
       body: {
         user_id: email,            // ← 백엔드는 user_id(=email) 기대
         password: password.value,
+        nickname: nickname.value.trim(),
         // nickname을 백엔드에서 안 쓰면 보내지 않아도 됩니다
       },
     });

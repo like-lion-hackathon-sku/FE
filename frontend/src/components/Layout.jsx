@@ -14,9 +14,11 @@ export default function Layout() {
         <div className={styles.logoWrap}>
           <img src={logoUrl} alt="TimeAttack" className={styles.logo} />
 
-          <div className={styles.user}>
-            {user ? `${user.name}님` : "로그인이 필요합니다"}
-          </div>
+          {user ? (
+             <div className={styles.user}>
+               {(user.nickname && user.nickname.trim()) ? `${user.nickname}님` : '사용자님'}
+             </div>
+           ) : null}
 
           {/* 로그인/로그아웃 액션 */}
           <div style={{ marginTop: 8, display: "flex", gap: 8 }}>

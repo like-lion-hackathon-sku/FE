@@ -15,15 +15,18 @@ function pickUserId(req) {
 export async function login(req, res) {
   try {
     const email = pickUserId(req);
-    const { password } = req.body ?? {};
+    const { password} = req.body ?? {};
     if (!email || !password) {
       return res.status(400).json({ ok: false, message: '아이디/비밀번호를 입력하세요.' });
     }
 
-    const { id, email: normalizedEmail } = await AuthService.login(email, password);
-    req.session.user = { id, email: normalizedEmail };
+    const { id, email: normalizedEmail,nickname} = await AuthService.login(email, password);
+    req.session.user = { id, email: normalizedEmail, nickname };
 
-    return res.json({ ok: true, message: '로그인 완료' });
+    return res.json({
+      ok: true,
+      user: { id, email: normalizedEmail, nickname },
+    });
   } catch (err) {
     if (err?.code === 'AUTH_INVALID') {
       return res.status(401).json({ ok: false, message: '이메일 또는 비밀번호가 올바르지 않습니다.' });
@@ -53,12 +56,12 @@ export async function logout(req, res) {
 export async function register(req, res) {
   try {
     const email = pickUserId(req);
-    const { password } = req.body ?? {};
+    const { password, nickname } = req.body ?? {};
     if (!email || !password) {
       return res.status(400).json({ ok: false, message: 'user_id, password required' });
     }
 
-    await AuthService.register(email, password);
+    await AuthService.register(email, password, nickname);
     return res.status(201).json({ ok: true, message: 'Registered' });
   } catch (err) {
     if (err?.code === 'AUTH_DUP') {

@@ -11,7 +11,7 @@ export async function login(user_id, password) {
   if (!ok) throw { code: 'AUTH_INVALID' };
 
   // 컨트롤러/프론트가 기대하는 최소 정보 반환
-  return { id: user.id, email: user.email };
+  return { id: user.id, email: user.email, nickname: user.nickname };
 }
 
 // 회원가입: create → createUser 로, 해시를 password_hash로 넘김

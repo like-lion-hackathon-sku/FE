@@ -12,19 +12,22 @@ import { pool } from '../db.config.js';
 export const getPosts = async (req, res) => {
   try {
     const page = Math.max(1, parseInt(req.query.page, 10) || 1);
-    const size = Math.min(50, Math.max(1, parseInt(req.query.size, 10) || 10));
+    const sizeParam = req.query.size ?? req.query.limit; // ← limit도 허용
+    const size = Math.min(50, Math.max(1, parseInt(sizeParam, 10) || 10));
     const offset = (page - 1) * size;
 
     const [rows] = await pool.query(
       `
       SELECT 
-        \`post_id\`   AS id,
-        \`title\`,
-        \`content\`,
-        \`user_id\`,
-        \`created_at\` AS createdAt
-      FROM \`Post\`
-      ORDER BY \`post_id\` DESC
+        p.\`post_id\`   AS id,
+        p.\`title\`,
+        p.\`content\`,
+        p.\`user_id\`,
+        u.\`nickname\`  AS author,
+        p.\`created_at\` AS createdAt
+      FROM \`Post\` p
+      LEFT JOIN \`users\` u ON u.\`user_id\` = p.\`user_id\`
+      ORDER BY p.\`post_id\` DESC
       LIMIT ? OFFSET ?
       `,
       [size, offset]
@@ -58,13 +61,15 @@ export const getPost = async (req, res) => {
     const [rows] = await pool.query(
       `
       SELECT 
-        \`post_id\`   AS id,
-        \`title\`,
-        \`content\`,
-        \`user_id\`,
-        \`created_at\` AS createdAt
-      FROM \`Post\`
-      WHERE \`post_id\` = ?
+        p.\`post_id\`   AS id,
+        p.\`title\`,
+        p.\`content\`,
+        p.\`user_id\`,
+        u.\`nickname\`  AS author,
+        p.\`created_at\` AS createdAt
+      FROM \`Post\` p
+      LEFT JOIN \`users\` u ON u.\`user_id\` = p.\`user_id\`
+      WHERE p.\`post_id\` = ?
       LIMIT 1
       `,
       [postId]

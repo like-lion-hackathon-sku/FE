@@ -5,7 +5,8 @@ export async function findByEmail(email) {
     `SELECT
        user_id     AS id,
        email       AS email,
-       password    AS password_hash
+       password    AS password_hash,
+       nickname
      FROM users
      WHERE email = ?
      LIMIT 1`,

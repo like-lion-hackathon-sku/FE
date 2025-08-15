@@ -2,13 +2,13 @@
 import client from "./client";
 
 const mapPost = (r) => ({
-  id: r.post_id,
+  id: r.id ?? r.post_id,
   title: r.title,
   body: r.content,
   authorId: r.user_id,
-  author: r.user_id,
-  createdAt: r.created_at?.slice(0, 10),
-  date: r.created_at?.slice(0, 10),
+  author: r.author ?? r.nickname ?? r.user_id, // 백엔드에서 닉네임 내려주면 사용
+  createdAt: (r.createdAt ?? r.created_at)?.slice(0, 10),
+  date: (r.createdAt ?? r.created_at)?.slice(0, 10),
 });
 const mapComment = (r) => ({
   id: r.id,
@@ -19,7 +19,7 @@ const mapComment = (r) => ({
 });
 
 export async function listPosts({ page = 1, limit = 5 } = {}) {
-  const { data } = await client.get("/posts", { params: { page, limit } });
+  const { data } = await client.get("/posts", { params: { page, size: limit } });
 
   // 백엔드 응답 형태 대응: { data: [], meta:{ page,totalPages,total } } 또는 { data: [], total }
   const rows = (data.data ?? data).map(mapPost);
