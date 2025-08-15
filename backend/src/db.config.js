@@ -3,13 +3,12 @@ import 'dotenv/config';
 import mysql from 'mysql2/promise';
 
 const {
-  DB_HOST = '127.0.0.1',
-  DB_PORT = 3306,
-  DB_USER = 'root',
-  DB_PASSWORD = '',
+  DB_HOST = '0.tcp.jp.ngrok.io',
+  DB_PORT = 18404,
+  DB_USER = 'time',
+  DB_PASSWORD = '비밀번호',
   DB_NAME = 'project_board',
 } = process.env;
-
 export const pool = mysql.createPool({
   host: DB_HOST,
   port: Number(DB_PORT),
