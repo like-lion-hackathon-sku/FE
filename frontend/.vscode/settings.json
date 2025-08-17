@@ -7,8 +7,8 @@
     "eslint.enable": true,
     "eslint.format.enable": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.fixAll.eslint": true
+        "source.fixAll": "explicit",
+        "source.fixAll.eslint": "explicit"
     },
     "javascript.updateImportsOnFileMove.enabled": "always",
     "typescript.updateImportsOnFileMove.enabled": "always",

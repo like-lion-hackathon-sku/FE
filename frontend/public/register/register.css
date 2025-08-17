@@ -46,3 +46,49 @@
 .status-margin { height:28px; }
 #statusArea { font-size:12px; color:#d93025; }
 #statusArea.ok { color:#137333; }
+
+/* =====================[ 추가: 무손상 반응형 스케일 ]===================== */
+/* 설계 기준 크기(.screen .div가 1440x1024) */
+:root{
+  --design-w: 1440px;
+  --design-h: 1024px;
+}
+
+/* 화면 크기에 따라 스케일 계산(가로/세로 중 작은 비율 채택) */
+.screen{
+  width: 100vw;
+  height: 100svh;       /* 모바일 주소창 변화 대응 */
+  overflow: hidden;
+  display: grid;
+  place-items: start;
+
+  --sx: calc(100vw / var(--design-w));
+  --sy: calc(100svh / var(--design-h));
+  --s: min(var(--sx), var(--sy));
+}
+
+/* 원본 고정 좌표는 보존하고, 결과만 축소/확대 */
+.screen .div{
+  transform-origin: top left;
+  transform: scale(var(--s));
+}
+
+/* 스케일된 실제 차지 영역(정렬/스크롤 보정) */
+.screen::before{
+  content:"";
+  display:block;
+  width: calc(var(--design-w) * var(--s));
+  height: calc(var(--design-h) * var(--s));
+}
+
+/* 초대형 화면에서 가운데 정렬(선택) */
+@media (min-width: 1440px){
+  .screen{ justify-items: center; align-items: start; }
+}
+
+/* (선택) 작은 화면에서 글자만 살짝 키우기 — 필요 시 주석 해제
+@media (max-width: 420px){
+  .text-wrapper { font-size: 34px; }
+  .text-wrapper-5, .text-wrapper-7 { font-size: 14px; }
+}
+*/

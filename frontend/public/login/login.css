@@ -1,3 +1,4 @@
+/* =====================[ 원본 코드 (수정 없음) ]===================== */
 @import url("/css/reset.css");
 
 .screen {
@@ -318,7 +319,6 @@
   cursor: pointer;
 }
 
-
 .gradient-shadow .timeattack-logo {
   position: absolute;
   width: 245px;  /* 크기(원하면 150~180px 사이로 조절) */
@@ -327,3 +327,54 @@
   left: 183px;
   object-fit: cover;
 }
+
+/* =====================[ 추가: 무손상 반응형 스케일 ]===================== */
+/* 디자인 기준 크기(네 .div가 1440x1024이므로 그대로 사용) */
+:root{
+  --design-w: 1440px;
+  --design-h: 1024px;
+}
+
+/* 화면 크기에 따라 스케일 계산(가로/세로 중 작은 비율 채택) */
+.screen{
+  width: 100vw;
+  height: 100svh;                  /* 모바일 주소창 변화 대응 */
+  overflow: hidden;
+  display: grid;
+  place-items: start;
+
+  --sx: calc(100vw / var(--design-w));
+  --sy: calc(100svh / var(--design-h));
+  --s: min(var(--sx), var(--sy));
+}
+
+/* 원본 고정 좌표는 유지하고, 보이는 결과만 축소/확대 */
+.screen .div{
+  transform-origin: top left;
+  transform: scale(var(--s));
+}
+
+/* 스케일된 실제 차지 영역을 만들어 스크롤/정렬 깨짐 방지 */
+.screen::before{
+  content: "";
+  display: block;
+  width: calc(var(--design-w) * var(--s));
+  height: calc(var(--design-h) * var(--s));
+}
+
+/* 초대형 화면에서 가운데 정렬하고 싶다면(선택) */
+@media (min-width: 1440px){
+  .screen{
+    justify-items: center;
+    align-items: start;
+  }
+}
+
+/* =====[ 선택: 작은 화면에서 글자만 살짝 키우기 ]===== */
+/* 너무 작게 느껴지면 아래 주석을 풀어 사용하세요.
+@media (max-width: 420px){
+  .screen .heading-time-ttack { font-size: 44px; }
+  .screen .text-wrapper, .screen .text-wrapper-2,
+  .screen .text-wrapper-3, .screen .text-wrapper-4 { font-size: 15px; }
+}
+*/
