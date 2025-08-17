@@ -1,71 +1,198 @@
-.screen { min-height: 100vh; background:#fff; color:#111827; }
-.header { max-width: 960px; margin: 0 auto; padding:16px; display:flex; justify-content:flex-end; }
-.container { max-width: 960px; margin:0 auto; padding:0 16px 48px; }
-.title { text-align:center; font-size:28px; font-weight:600; margin:8px 0 32px; }
+.screen{ min-height:100vh; background:#fff; color:#111827; }
+.header{ max-width:960px; margin:0 auto; padding:16px; display:flex; justify-content:flex-end; }
+.container{ max-width:960px; margin:0 auto; padding:0 16px 48px; }
+.title{ text-align:center; font-size:28px; font-weight:600; margin:8px 0 32px; }
 
-.tableWrap { margin-top:24px; overflow-x:auto; }
-.table { width:100%;
-  border-collapse:separate;   /* 둥근 모서리 유지 */
-  border-spacing:0;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.06);
+/* ── 테이블 ─────────────────────────────────── */
+.tableWrap{ margin-top:24px; overflow-x:auto; }
+
+/* PC 기본 */
+.table{
+  width:100%;
+  min-width:640px;
+  border-collapse:collapse;
   background:#fff;
-  overflow:hidden; }
-.table thead tr { background:rgba(37,99,235,0.6); color:#fff; }
-.table th, .table td {
-  padding:12px 14px;
-  border-bottom:1px solid #e5e7eb;
-  vertical-align:middle;
-  text-align:center;          /* ✅ 가운데 정렬 */
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 16px rgba(0,0,0,.06);
 }
-.table th, .table td { border-right:1px solid #e5e7eb; }
-.table th:last-child, .table td:last-child { border-right:none; }
-.thCenter, .tdCenter { text-align:center; }
-.row { background:#fff; cursor:pointer; }
-.row:hover { background:#f9fafb; }
-.empty { padding:36px 12px; text-align:center; color:#6b7280; }
+.table thead th{
+  background:#e5efff;
+  color:#1f3b7f;
+  font-weight:700;
+}
+.table th, .table td{
+  padding:12px 10px;
+  text-align:center;
+  border-bottom:1px solid #e9eef5;
+  white-space:nowrap;
+}
+.table tbody tr:hover{ background:#f7faff; }
+.row{ background:#fff; cursor:pointer; }
+.empty{ padding:36px 12px; text-align:center; color:#6b7280; }
 
-.footerBar{
-  margin-top:24px; display:flex; align-items:center; justify-content:space-between; width:100%;
+/* 값 래퍼(모바일 정렬에 사용) */
+.cell{ display:inline-block; }
+
+/* ── 모바일(<=640px): 카드형 ─────────────────── */
+@media (max-width:640px){
+  .tableWrap { overflow-x: visible; }   /* 가로 잘림 방지 */
+  .table{ border:0; min-width:0; }
+  .table thead{ display:none; }
+  .table, .table tbody, .table tr, .table td{ display:block; width:100%; }
+
+  .table tr{
+    margin-bottom:12px;
+    border:1px solid #e9eef5;
+    border-radius:12px;
+    background:#fff;
+    overflow:hidden;
+    box-sizing:border-box;             /* border 포함 폭 */
+  }
+
+  .table td{
+    display:flex;
+    align-items:center;                /* ✅ 세로정렬 안정 */
+    gap:12px;
+    padding:14px 16px;
+    border-bottom:1px dashed #e9eef5;
+    white-space:normal;                /* 제목 줄바꿈 허용 */
+    line-height:1.4;
+  }
+  .table td:last-child{ border-bottom:0; }
+
+  /* 왼쪽 라벨(모든 줄 동일 폭으로 고정) */
+  .table td::before{
+    content:attr(data-label);
+    flex:0 0 76px;                     /* ✅ 라벨 고정폭 (72~88px 사이 취향대로) */
+    color:#666;
+    font-weight:600;
+  }
+
+  /* 값: 기본 오른쪽 정렬 */
+  .cell{ flex:1 1 auto; text-align:right; word-break:break-word; }
+
+  /* 제목만 왼쪽 정렬 */
+  td[data-label="제목"] .cell{ text-align:left; }
 }
 
+/* ── 페이지네이션/버튼 ───────────────────────── */
+.footerBar{ margin-top:24px; display:flex; align-items:center; justify-content:space-between; width:100%; }
 .pagination{ display:inline-flex; align-items:center; gap:8px; }
 
-/* Prev/Next */
 .btn{
   border:1px solid #e5e7eb; background:#fff; color:#111;
   padding:6px 12px; font-size:14px; border-radius:8px;
 }
 .btn:hover{ background:#f3f4f6; }
 .btn:disabled{ opacity:.5; cursor:not-allowed; }
-.btnDanger{
-  background:#ef4444 !important;
-  color:#fff !important;
-  border:none;
-  padding:8px 12px;
-  border-radius:12px;
-  font-weight:600;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
-.btnDanger:hover{ background:#ef4444ee !important; }
-/* Page numbers (기본: 흰배경+검은글씨, 중앙정렬, 패딩 넉넉) */
+
 .page{
   min-width:36px; height:36px; padding:0 14px; border-radius:8px;
   border:1px solid #e5e7eb; background:#fff; color:#111;
   font-size:14px; line-height:36px; display:inline-flex; align-items:center; justify-content:center;
 }
 .page:hover{ background:#f3f4f6; }
+.pageActive{ background:#111827; color:#fff; border-color:#111827; }
 
-/* Active page */
-.pageActive{
-  background:#111827; color:#fff; border-color:#111827;
-}
-
-/* 글 작성하기 (오른쪽) */
 .btnPrimary{
   background:rgba(37,99,235,.6); color:#fff; border:none;
   padding:8px 14px; border-radius:12px; font-weight:600;
 }
 .btnPrimary:hover{ background:rgba(37,99,235,.8); }
+
+/* 모바일에서 글작성 버튼을 FAB로 */
+@media (max-width:768px){
+  .btnPrimary{
+    position:fixed; right:16px;
+    bottom:calc(16px + env(safe-area-inset-bottom));
+    z-index:20;
+  }
+}
+
+/* iOS safe area 보정 */
+@supports (padding: env(safe-area-inset-right)) {
+  .container{
+    padding-left: calc(16px + env(safe-area-inset-left));
+    padding-right: calc(16px + env(safe-area-inset-right));
+  }
+}
+.table td[data-label="제목"] .cell{
+  white-space: normal;       /* nowrap 덮어쓰기 */
+  text-align: left;
+  overflow-wrap: anywhere;   /* 긴 영문/연속문자도 줄바꿈 */
+  word-break: break-word;    /* 보조 */
+  line-height: 1.4;
+}/* PC에서 제목 말줄임 */
+@media (min-width: 641px){
+  .table td[data-label="제목"] .cell{
+    display: inline-block;
+    max-width: 420px;        /* 표 너비에 맞게 조절 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+}
+/* 값 래퍼(전역) */
+.val { display:block; width:100%; text-align:center; }
+
+/* ───────── 모바일 카드형 (≤640px) ───────── */
+@media (max-width:640px){
+  .table{ border:0; min-width:0; }
+  .table thead{ display:none; }
+
+  /* 테이블을 카드형으로 전환 */
+  .table, .table tbody, .table tr, .table td{
+    display:block; width:100%;
+  }
+  .table tr{
+    margin-bottom:12px;
+    border:1px solid #e9eef5;
+    border-radius:12px;
+    background:#fff;
+    overflow:hidden;
+    box-sizing:border-box;
+  }
+
+  /* ★ 핵심: 셀 자체도 줄어들 수 있게 + 줄바꿈 허용 */
+  .table td{
+    box-sizing:border-box;
+    min-width:0;                /* Safari 보정 */
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 14px;
+    border-bottom:1px dashed #e9eef5;
+    white-space:normal;         /* 데스크톱 nowrap 해제 */
+  }
+  .table td:last-child{ border-bottom:0; }
+
+  /* ★ 빠져있던 content 추가 (없으면 공간만 차지하고 값이 오른쪽으로 밀림) */
+  .table td::before{
+    content: attr(data-label);
+    flex: 0 0 80px;             /* 라벨 폭 (원하면 조절) */
+    color:#666;
+    font-weight:600;
+  }
+
+  /* 값 영역: 줄바꿈이 실제로 일어나게 */
+  .val{
+    flex:1 1 auto;
+    min-width:0;                /* flex 항목 줄바꿈 핵심 */
+    text-align:left;            /* 오른쪽/가운데 정렬은 줄바꿈 어색 */
+    white-space:normal;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+    line-height:1.4;
+  }
+
+  /* 제목 링크도 같이 감싸서 줄바꿈 */
+  .table td[data-label="제목"] .val a{
+    display:block;
+    white-space:inherit;
+    word-break:inherit;
+    overflow-wrap:inherit;
+  }
+}
