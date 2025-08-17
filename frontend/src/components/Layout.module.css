@@ -39,3 +39,47 @@
   .app { grid-template-columns: 0 1fr; } /* 모바일에선 패널 숨김(원하면 200px 고정으로) */
   .sidebar { display: none; }
 }
+.app{
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar{
+  background: linear-gradient(180deg, #203aee 0%, #1240cb 100%);
+  color: #fff;
+  padding: 20px;
+}
+
+.logoWrap{ display: flex; flex-direction: column; gap: 12px; }
+.logo{ width: 160px; height: auto; }
+.user{ font-size: 14px; opacity: .9; }
+
+.main{ padding: 24px; }
+
+/* ───── 모바일(<=768px)에서 1열 + 상단바로 바꾸기 ───── */
+@media (max-width: 768px){
+  .app{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .sidebar{
+  flex: 0 0 260px;               /* ✅ 고정폭(덮지 않게) */
+  background: linear-gradient(180deg,#1e3a8a,#2563eb);
+  color: #fff;
+  padding: 24px 16px;
+  /* ❌ 아래 같은 속성이 있으면 삭제하세요
+     position: fixed; left:0; top:0; right:0; bottom:0;
+     width: 100vw;
+     height: 100vh;
+  */
+}
+  .logoWrap{
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo{ width: 28px; }
+  .user{ font-size: 13px; }
+  .main{ padding: 12px; }
+}
