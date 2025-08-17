@@ -1,0 +1,156 @@
+/* =================== login.mobile.css (최종 완성본) =================== */
+
+/* 0) 데스크탑 스케일/절대값 해제 */
+.screen { 
+  height: auto; 
+  padding: 0 16px; 
+  display: block; 
+}
+.screen .div { 
+  transform: none !important; 
+  width: 100% !important; 
+  height: auto !important; 
+  overflow: visible !important; 
+}
+
+/* 1) 카드 레이아웃(폼 박스) */
+.screen .gradient-shadow { 
+  display: none !important;  /* 파란 블럭 제거 */
+}
+.screen .background-shadow {
+  position: static !important;
+  width: 100% !important; 
+  max-width: 560px; 
+  height: auto !important;
+  margin: 24px auto !important; 
+  padding: 24px 18px !important;
+  background: #fff; 
+  border-radius: 14px !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,.08) !important;
+}
+
+/* 2) 타이틀 (로고 제거) */
+.gradient-shadow .timeattack-logo{
+  display: none !important; /* 로고 제거 */
+}
+.screen .heading-time-ttack{
+  position: static !important; 
+  width: auto !important; 
+  height: auto !important;
+  margin: 0 auto 12px !important;
+  font-size: 22px !important; 
+  letter-spacing: .02em !important;
+  text-align: center !important; 
+  white-space: normal !important;
+}
+
+/* 3) 폼 스택: 라벨-인풋-버튼 간격 정리 */
+#loginForm{ margin: 0; }
+.screen .container,
+.screen .container-2 { 
+  position: static !important; 
+  width: 100% !important; 
+  margin: 12px 0 !important; 
+}
+.screen .label-ID,
+.screen .label-password{
+  position: static !important; 
+  margin: 0 0 6px !important;
+  font: 500 13px/1.3 "Poppins", Arial, sans-serif !important; 
+  color:#333 !important;
+}
+
+/* 4) 인풋 박스 */
+.screen .overlay-border,
+.screen .overlay-border-2{
+  position: static !important; 
+  width: 100% !important; 
+  height: auto !important; 
+  padding: 0 !important;
+  border: 1px solid #D1D5DB !important; 
+  border-radius: 10px !important;
+  box-shadow: none !important; 
+  background: #fff !important;
+  display: flex !important; 
+  align-items: center !important;
+}
+.screen .input{ 
+  width: 100% !important; 
+  height: auto !important; 
+  padding: 12px 14px !important; 
+}
+.input input{
+  width:100% !important; 
+  height:100% !important; 
+  border:none !important; 
+  outline: none !important;
+  font: 400 16px/1.4 "Poppins", Arial, sans-serif !important; 
+  color:#111 !important;
+}
+.input input::placeholder{ 
+  color:#9CA3AF !important; 
+}
+
+/* 비밀번호 보기 버튼 우측 정렬 */
+.overlay-border-2 .button{
+  position: absolute !important; 
+  right: 10px !important; 
+  top: 50% !important; 
+  transform: translateY(-50%) !important;
+  padding: 6px 8px !important; 
+  left: auto !important; 
+  background: none !important;
+}
+.text-wrapper-2{ 
+  font:600 12px/1 Arial, sans-serif !important; 
+  color:#374151 !important; 
+}
+
+/* 5) 로그인 버튼 */
+.screen .container-wrapper{
+  position: static !important; 
+  width: 100% !important; 
+  height: 48px !important;
+  margin: 16px 0 8px !important; 
+  padding: 0 16px !important;
+  display: flex !important; 
+  justify-content: center !important; 
+  align-items: center !important;
+  border-radius: 10px !important; 
+  border: none !important; 
+  background:#107ddb !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,.08) inset, 
+              0 6px 14px rgba(16,125,219,.3) !important;
+}
+.text-wrapper-4{ 
+  font:700 15px/1 Arial, sans-serif !important; 
+  color:#fff !important; 
+}
+
+/* 6) 회원가입 링크 행 */
+.screen .container-3{
+  position: static !important; 
+  width: 100% !important; 
+  margin: 8px 0 0 !important;
+  display: flex !important; 
+  justify-content: center !important; 
+  align-items: center !important; 
+  gap: 6px !important;
+}
+.screen .i-don-t-have-an{ 
+  font:400 14px/20px "Poppins", Arial, sans-serif !important; 
+  color:#6B7280 !important; 
+  margin:0 !important; 
+}
+.screen .text-wrapper-3{ 
+  font:600 14px/20px "Poppins", Arial, sans-serif !important; 
+  color:#107ddb !important; 
+  text-decoration: underline !important; 
+}
+
+/* 7) 여백 균형 */
+@media (max-width: 380px){
+  .screen .heading-time-ttack{ 
+    font-size: 20px !important; 
+  }
+}

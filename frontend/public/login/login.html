@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>로그인</title>
-    <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/login/login.css" />
-  </head>
+  <!-- public/js/login/login.html -->
+<head>
+  <meta charset="utf-8" />
+  <!-- ✅ 반응형 계산의 핵심 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- (선택) 폰트/프리커넥트 -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+
+  <!-- ✅ CSS 로딩 순서: 리셋 → 데스크탑 → 모바일 오버라이드 -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/login/login.css">                <!-- 데스크탑 기본 -->
+  <link rel="stylesheet" href="/login/login.mobile.css" media="(max-width: 768px)"> <!-- 모바일 전용 -->
+
+  <title>로그인</title>
+</head>
   <body>
     <div class="screen">
       <div class="div">
@@ -19,11 +28,11 @@
 
           <form id="loginForm" novalidate method="post">
             <div class="container">
-              <label class="label-ID" for="user_id">ID</label>
+              <label class="label-ID" for="user_id">E-mail</label>
               <div class="overlay-border">
                 <div class="input">
                   <input id="user_id" name="user_id" type="text"
-                         autocomplete="username" placeholder="아이디를 입력하세요" aria-label="아이디" />
+                         autocomplete="username" placeholder="이메일을 입력하세요" aria-label="아이디" />
                 </div>
               </div>
             </div>
